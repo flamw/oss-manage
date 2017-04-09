@@ -8,11 +8,11 @@
             connectionURL="jdbc:mysql://localhost:3306/flame?useUnicode=true&amp;characterEncoding=UTF-8"
             userId="root" password="123" />
         <javaModelGenerator targetPackage="com.flame.model"
-            targetProject="/workspace/flame-img/src/main/java" />
+            targetProject="/Users/feilonghuang/git/filemanage/flame-img/src/main/java" />
         <sqlMapGenerator targetPackage="mapper"
-            targetProject="/workspace/flame-img/src/main/resources" />
+            targetProject="/Users/feilonghuang/git/filemanage/flame-img/src/main/resources" />
         <javaClientGenerator targetPackage="com.flame.dao"
-            targetProject="/workspace/flame-img/src/main/java" type="XMLMAPPER" />
+            targetProject="/Users/feilonghuang/git/filemanage/flame-img/src/main/java" type="XMLMAPPER" />
         <!-- 配置表信息 -->      
 <!--         <table schema="root" tableName="t_folder"   -->
 <!--             domainObjectName="Folder" enableCountByExample="false"   -->
@@ -29,8 +29,8 @@
                 是否生成 example类   -->  
 <!--         </table>  -->
         <!-- 配置表信息 -->      
-<!--         <table schema="root" tableName="t_user_file"   -->
-<!--             domainObjectName="UserFile" enableCountByExample="false"   -->
+<!--         <table schema="root" tableName="t_sys_log"   -->
+<!--             domainObjectName="SysLog" enableCountByExample="false"   -->
 <!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
 <!--             enableUpdateByExample="false">   -->
             <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample   

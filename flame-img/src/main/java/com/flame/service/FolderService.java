@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.flame.dao.FolderMapper;
 import com.flame.dao.OssFileMapper;
 import com.flame.model.Folder;
+import com.flame.model.User;
 
 /**
  *文件夹服务类
@@ -24,6 +25,9 @@ public class FolderService {
 	
 	@Autowired
 	OssFileMapper ossFileMapper;
+	
+	@Autowired
+	UserService userService;
 	
 	/**
 	 * 新增文件夹
@@ -49,14 +53,15 @@ public class FolderService {
 		folder.setMtime(new Date());
 		folderMapper.updateByPrimaryKey(folder);
 	};
+	
 	/**
 	 * 共享文件夹
 	 * @param id
-	 * @param newFolderName
+	 * @param permission 权限 0 ：私有，1:共享
 	 */
-	public void shareFolder(Integer id){
+	public void shareFolder(Integer id,Integer permission){
 		Folder folder=findById(id);
-		folder.setPermission(1);
+		folder.setPermission(permission);
 		folder.setMtime(new Date());
 		folderMapper.updateByPrimaryKey(folder);
 	};
@@ -93,6 +98,14 @@ public class FolderService {
 	 * @return
 	 */
 	public Map<String, Object> queryFolderByPid(Folder folder){
+		
+		//判断用户角色
+		User user=userService.find(folder.getUserId());
+		//如果是管理员，可以查看所有文件夹 1为角色id
+		if(user.getRoleId()==1){
+			folder.setUserId(null);
+		}
+		
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		List<Map<String, Object>> list = folderMapper.queryFolderByPid(folder);
 		reMap.put("folders", list);

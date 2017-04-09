@@ -1,9 +1,5 @@
 package com.flame.web;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -12,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.imageio.stream.FileImageInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -23,7 +17,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,11 +31,10 @@ import com.flame.constant.Constant;
 import com.flame.model.File;
 import com.flame.model.Folder;
 import com.flame.model.OssFile;
-import com.flame.model.User;
 import com.flame.service.AliyunOssService;
-import com.flame.service.FileService;
 import com.flame.service.FolderService;
 import com.flame.service.OssFileService;
+import com.flame.service.SysLogService;
 
 /**
  * 文件管理控制器
@@ -54,14 +46,14 @@ public class FileConroller {
 	private String ACTION_PATH = "/filemanage/";
 
 	@Autowired
-	FileService fileService;
-	@Autowired
 	FolderService folderService;
 	@Autowired
 	OssFileService ossFileService;
 	@Autowired
 	AliyunOssService aliyunOssService;
-
+	@Autowired
+	SysLogService sysLogService;
+	
 	/**
 	 * 跳转图片管理
 	 * 
@@ -115,6 +107,7 @@ public class FileConroller {
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		try {
 			int key = folderService.add(folder);
+			sysLogService.addSysLog(folder.getUserId(), "新增文件夹",folder.getFolderName());
 			reMap.put("newFOlderKey", key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,14 +115,14 @@ public class FileConroller {
 		}
 		return reMap;
 	}
+	
 	/**
 	 * 共享文件夹
 	 */
-	@RequestMapping(value = "/public/shareFolder")
-	public @ResponseBody String shareFolder(String bucket, Integer folderId, Integer userId) {
+	@RequestMapping(value = "/public/shareFolder", method = RequestMethod.POST)
+	public @ResponseBody String shareFolder(String bucket, Integer folderId, Integer userId,Integer permission) {
 		try {
-			
-			folderService.shareFolder(folderId);
+			folderService.shareFolder(folderId,permission);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Constant.FAIL_CODE;
@@ -166,17 +159,27 @@ public class FileConroller {
 			String originalFilename = uploadfile.getOriginalFilename();
 			String ossKey = UUID.randomUUID().toString();
 			aliyunOssService.upload(bucket, uploadfile.getInputStream(), ossKey);
+			
+			String contentType=uploadfile.getContentType();
+			String url=aliyunOssService.getUrl(bucket, ossKey);
+			
+			//阿里云图片访问 图片进行按目标宽度是500进行缩略。
+			if("image/jpeg".equals(contentType.trim())){
+				url+="?x-oss-process=image/resize,w_500";
+			}
 			// 保存文件信息
 			OssFile ossFile = new OssFile();
 			ossFile.setBucket(bucket);
 			ossFile.setFileName(originalFilename);
 			ossFile.setFileSize((int) uploadfile.getSize());
-			ossFile.setUrl(aliyunOssService.getUrl(bucket, ossKey));
-			ossFile.setFileType(uploadfile.getContentType());
+			ossFile.setUrl(url);
+			ossFile.setFileType(contentType);
 			ossFile.setFolderId(folderId);
 			ossFile.setOssKey(ossKey);
 			ossFile.setFileSize((int) uploadfile.getSize());
 			int id = ossFileService.add(ossFile);
+			
+			sysLogService.addSysLog(userId, "文件上传",originalFilename);
 			reMap.put("newFileKey", id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,6 +195,7 @@ public class FileConroller {
 	@RequestMapping(value = "/public/deleteObject")
 	public @ResponseBody String deleteObject(String bucket, Integer id, Integer userId) {
 		try {
+			sysLogService.addSysLog(userId, "文件/文件夹 删除","");
 			ossFileService.delete(id);
 			folderService.deleteFolder(id);
 		} catch (Exception e) {
@@ -236,7 +240,7 @@ public class FileConroller {
 		headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", URLEncoder.encode(ossFile.getFileName(), "utf-8")));
 		headers.add("Pragma", "no-cache");
 		headers.add("Expires", "0");
-
+		sysLogService.addSysLog(userId, "文件下载",ossFile.getFileName());
 		return ResponseEntity.ok().headers(headers).contentLength(ossFile.getFileSize())
 				.contentType(MediaType.parseMediaType("application/octet-stream"))
 				.body(new InputStreamResource(SSObject.getObjectContent()));
@@ -250,14 +254,8 @@ public class FileConroller {
 	@RequestMapping(value = "/public/reNameObject")
 	public @ResponseBody Map<String, Object> reNameObject(@ModelAttribute("preloadEntity") File file) {
 		Map<String, Object> reMap = new HashMap<String, Object>();
-		try {
-			String newKey = file.getRelativePath() + "/" + file.getToName();
-			fileService.reNameObject(file);
-			reMap.put("newKey", newKey);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return reMap;
-		}
+		
+		//TODO
 		return reMap;
 	}
 
@@ -274,12 +272,12 @@ public class FileConroller {
 		return Constant.SUCCESS_CODE;
 	}
 
-	/**
+/*	*//**
 	 * 校验用户是否登陆
 	 * 
 	 * @param file
 	 * @return
-	 */
+	 *//*
 	public boolean validate(File file) {
 		if (file != null && file.getUserId() != null) {
 			return true;
@@ -287,9 +285,5 @@ public class FileConroller {
 			return false;
 	}
 
-	public User getUser(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		User userInfo = (User) session.getAttribute("user");
-		return userInfo;
-	}
+	*/
 }

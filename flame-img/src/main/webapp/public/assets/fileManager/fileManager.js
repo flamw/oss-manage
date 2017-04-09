@@ -377,6 +377,7 @@
                                     <ul class="menu-node"> \
                                         <li data-key="createnew">新建文件夹</li> \
             							<li data-key="share">共享文件夹</li> \
+            							<li data-key="cancelShare">取消共享</li> \
                                         <li data-key="delete">删除</li> \
                                     </ul> \
                                     <ul class="service-node"> \
@@ -402,7 +403,7 @@
                                     </a> \
                                     <a node-type="check-btn-option" data-key="getimage"> \
                                         <span class="fm-icon drapout"></span> \
-                                        <span class="btn-value">获取图片</span> \
+                                        <span class="btn-value">获取分享链接</span> \
                                     </a> \
                                 </div>'),
             ModuleUpload: $.templates('<div class="fM-module-upload"> \
@@ -759,7 +760,7 @@
      * @param bucket object key所属的bucket的信息
      * @param string folderId 目录id
      */
-    Service.prototype.shareFolder = function(bucket, folderId) {
+    Service.prototype.shareFolder = function(bucket, folderId,permission) {
     	var service = this;
     	return $.ajax({
     		url: service.config.server + service.config.shareFolder.endpoint,
@@ -767,6 +768,7 @@
     		data: {
     			bucket: bucket.Name,
     			folderId: folderId,
+    			permission: permission,
     			userId:userId
     		},
     	});
@@ -1166,9 +1168,10 @@
      *
      * @param fid {String} 父目录的id
      * @param newNodeValue {String} 新节点名称(目录名)
+     * @param permission  权限 0:私有，1共享
      * @return Promise
      */
-    Tree.prototype.shareNode = function(fid) {
+    Tree.prototype.shareNode = function(fid,permission) {
     	var tree = this,
     	node,
     	service,
@@ -1184,12 +1187,18 @@
     	bucket = tree.find(node.BucketId);
     	key = node.Key;
     	defer = $.Deferred();
-    	service.shareFolder(bucket, node.Key)
+    	var str;
+    	if(permission==1){
+    		str='共享成功。';
+    	}else{
+    		str='取消共享成功。';
+    	}
+    	service.shareFolder(bucket, node.Key,permission)
     	.done(function(response) {
-    		if (response === 0) {
-    			alert('共享成功。');
+    		if (response == '0') {
+    			alert(str);
     		}
-    		logger('共享目录成功', 'success');
+    		logger(str, 'success');
     		defer.resolve();
     	})
     	.fail(function(error) {
@@ -2117,7 +2126,12 @@
                      break;
                  case 'share':
                 	 if (window.confirm('你确定要共享所选项吗？')){
-                		 tree.shreNode(fid);
+                		 tree.shareNode(fid,1);
+                	 }
+                	 break;
+                 case 'cancelShare':
+                	 if (window.confirm('你确定要取消共享所选项吗？')){
+                		 tree.shareNode(fid,0);
                 	 }
                 	 break;
              }

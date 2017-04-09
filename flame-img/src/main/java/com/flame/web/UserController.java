@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import com.flame.constant.Constant;
 import com.flame.model.ResponseBean;
 import com.flame.model.User;
 import com.flame.service.RoleService;
+import com.flame.service.SysLogService;
 import com.flame.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -37,7 +40,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private RoleService roleService;
-
+	@Autowired
+	SysLogService sysLogService;
 	
 	/**
 	 * 默认加载菜单页
@@ -118,7 +122,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = { "save", "update" }, method = RequestMethod.POST)
-	public String saveAndUpdate(@ModelAttribute("preloadEntity") User user, RedirectAttributes redirectAttributes) {
+	public String saveAndUpdate(HttpServletRequest request,@ModelAttribute("preloadEntity") User user, RedirectAttributes redirectAttributes) {
 		String message = "保存成功！";
 		if (ObjectUtils.isEmpty(user.getUserId())) {
 			boolean f = userService.add(user);
@@ -128,6 +132,7 @@ public class UserController {
 				return "redirect:/user/add";
 			}
 		} else {
+			sysLogService.addSysLog(request, "新增用户");
 			userService.update(user);
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -142,10 +147,11 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("delete/{id}")
-	public @ResponseBody ResponseBean delete(@PathVariable("id") Integer id) {
+	public @ResponseBody ResponseBean delete(HttpServletRequest request,@PathVariable("id") Integer id) {
 		userService.delete(id);
 		ResponseBean rb = new ResponseBean();
 		rb.setRetnCode(Constant.SUCCESS_CODE);
+		sysLogService.addSysLog(request, "用户删除");
 		return rb;
 	}
 	

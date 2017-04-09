@@ -1,4 +1,4 @@
-package com.flame.service;
+/*package com.flame.service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -35,12 +35,12 @@ public class FileService {
 		userFileMapper.insert(uf);
 	}
 
-	/**
+	*//**
 	 * 文件删除
 	 * 
 	 * @param file
 	 * @return
-	 */
+	 *//*
 	public String deleteObject(File file) {
 		// 先查出要删除文件的id
 		List<String> ids = fileMapper.listUserFileIds(file);
@@ -52,10 +52,10 @@ public class FileService {
 		return Constant.SUCCESS_CODE;
 	}
 
-	/**
+	*//**
 	 * 文件夹查询
 	 * 
-	 */
+	 *//*
 	public Map<String, Object> listFolders(File file) {
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		List<Map<String, Object>> list = fileMapper.listFolders(file);
@@ -63,9 +63,9 @@ public class FileService {
 		reMap.put("count", list == null ? 0 : list.size());
 		return reMap;
 	}
-	/**
+	*//**
 	 * 文件查询
-	 */
+	 *//*
 	public Map<String, Object>  listObjects(File file) {
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		List<Map<String, Object>> listFolders = fileMapper.listFolders(file);
@@ -83,20 +83,21 @@ public class FileService {
 		return reMap;
 	}
 
-	/**
+	*//**
 	 * 文件改名
 	 * 
-	 */
+	 *//*
 	public String reNameObject(File file){
 		fileMapper.reNameObject(file);
 		return Constant.SUCCESS_CODE;
 	}
 
-	/**
+	*//**
 	 * 文件移动
-	 */
+	 *//*
 	public  String mvObject(File file){
 		//TODO
 		return Constant.SUCCESS_CODE;
 	}
 }
+*/

@@ -35,7 +35,7 @@ import tk.mybatis.mapper.util.StringUtil;
  * 权限过滤。
  * 登陆页面不过滤
  */
-@WebFilter(filterName = "FameFilter", urlPatterns ={"/user/*","/file/manage/*"}, initParams = {
+@WebFilter(filterName = "FameFilter", urlPatterns ={"/user/*","/file/manage/*","/sysLog/*"}, initParams = {
 		@WebInitParam(name = "EXCLUDED_PAGE", value = "login,register")
 		,@WebInitParam(name = "EXCLUDED_EXT", value = "jpeg;jpg;png;pdf;css;js") 
 		})

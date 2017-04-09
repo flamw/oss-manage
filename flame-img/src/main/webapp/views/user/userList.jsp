@@ -145,7 +145,7 @@
 					ajaxGridOptions: { contentType: 'application/json; charset=UTF-8' },
 					url:'<%=ctxpath%>/user/list',
 					datatype : "json",
-					height : 270,
+					height : 370,
 					colNames : [  '用户ID', '用户姓名','角色','创建时间', '操作' ],
 					colModel : [
 					{
@@ -180,6 +180,7 @@
 						width : 120,
 						sortable : false,
 						editable : true,
+						formatter:formatDateHHMMSS,
 						align : 'center'
 					}
 					, {
@@ -236,8 +237,8 @@
 						root : "results.datas", // 返回的具体的数据的数组
 						row : "results.size", // 返回的行数
 						//page:"pageCurrNum", // 当前的页数
-						total : "results.pageTotal", // 返回的总页数 
-						records : "results.size", // 返回的总记录条数 
+						total : "results.pages", // 返回的总页数 
+						records : "results.total", // 返回的总记录条数 
 						repeatitems : true,
 					    // id: "tsortMark"
 					},

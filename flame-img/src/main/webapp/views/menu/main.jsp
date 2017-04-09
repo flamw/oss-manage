@@ -77,7 +77,6 @@
 <script src="${ctx}/static/js/jquery.tmpl.js"></script>
 <script src="${ctx}/static/js/jquery.dndc-alert.js"></script>
 <script src="${ctx}/static/js/common/dateutil.js"></script>
-<script src="${ctx}/static/js/common/dateutil.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/common/delete.js"></script>
 <style  type="text/css">
 /* jqgrid表头居中 */
@@ -156,12 +155,10 @@ var  userId='${user.userId}';
 	    min: $.validator.format("请输入一个最小为 {0} 的值")
 	});
 	
-	/* $(function(){
-// 		$("#sidebar").find("a:first").trigger("click");
-        var userId='${user.userId}';
-		$.get("http://localhost:3001/?userId=${user.userId}"+userId);
-// 		alert($("#sidebar").find("a:first").html());
-	}); */
+	//毫秒转时间格式
+	function formatDateHHMMSS(cellvalue, options, rowObject){
+		return TimeObjectUtil.longMsTimeConvertToDateTime(cellvalue);
+	}
 
 </script>
 </head>
@@ -183,6 +180,8 @@ var  userId='${user.userId}';
 	</div>
 	<!-- /.main-container -->
 
-<script type="text/javascript"></script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

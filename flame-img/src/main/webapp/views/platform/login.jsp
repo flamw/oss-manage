@@ -32,7 +32,7 @@
 							<div class="center">
 								<h1>
 <%-- 									<img src="${ctx}/static/images/chx/df_logo.png" width="35%"> --%>
-									<span class="red">图片管理系统</span>
+									<span class="red">OSS文件管理平台</span>
 <!-- 									<span class="white" id="id-text2">运营平台</span> -->
 								</h1>
 								<!-- <h4 class="blue" id="id-company-text">&copy; 东风日产</h4> -->

@@ -24,6 +24,7 @@ import com.flame.dao.UserQuestionMapper;
 import com.flame.model.DemoExample;
 import com.flame.model.User;
 import com.flame.model.UserQuestion;
+import com.flame.service.SysLogService;
 import com.flame.service.UserService;
 
 /**
@@ -42,7 +43,10 @@ public class LoginController {
 	private UserService userService;
 	@Autowired
 	private UserQuestionMapper userQuestionMapper;
-
+	
+	@Autowired
+	SysLogService sysLogService;
+	
 	/**
 	 * 用户登陆
 	 * 
@@ -71,6 +75,8 @@ public class LoginController {
 			session.setAttribute("user", userInfo);
 			session.setAttribute("isLogin", "true");
 			session.setAttribute("menus", userMapper.queryMenuByRoleId(userInfo.getRoleId()));
+			
+			sysLogService.addSysLog(userInfo.getUserId(), "平台登陆");
 			redirectAttributes.addFlashAttribute("message", "登陆成功！");
 		} else {
 			redirectAttributes.addFlashAttribute("message", "登录失败，用户名或密码不对，请重试！");
@@ -134,7 +140,7 @@ public class LoginController {
 		userQuestions.add(uq2);
 		userQuestions.add(uq3);
 		userService.saveQuestion(userQuestions);
-
+		sysLogService.addSysLog(userId, "用户注册");
 		return "redirect:/login/";
 	}
 
@@ -146,6 +152,7 @@ public class LoginController {
 	@RequestMapping(value = "logout")
 	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		// 解绑用户信息
+		sysLogService.addSysLog(request, "用户注销");
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "redirect:" + "";

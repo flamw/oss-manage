@@ -179,6 +179,17 @@
       <if test="userId != null">
         and user_id = #{userId,jdbcType=INTEGER}
       </if>
+      union 
+   select 
+      id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified
+    from t_folder
+    where permission=1
+    <if test="bucket != null">
+       and bucket = #{bucket,jdbcType=INTEGER}
+      </if>
+      <if test="pid != null">
+       and pid = #{pid,jdbcType=INTEGER}
+      </if>
   </select>
   
 </mapper>

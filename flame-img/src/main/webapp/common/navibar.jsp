@@ -19,7 +19,7 @@
                     <a href="#" class="navbar-brand">
                         <small>
                             <i class="ace-icon fa fa-leaf"></i>
-                            图片管理平台
+                            OSS文件管理平台
                             
                         </small>
                     </a>

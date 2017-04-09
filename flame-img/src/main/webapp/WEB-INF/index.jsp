@@ -7,6 +7,5 @@
 <title>Insert title here</title>
 </head>
 <body>
-${msg}wwwwww
 </body>
 </html>

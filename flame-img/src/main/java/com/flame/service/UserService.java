@@ -23,10 +23,11 @@ import com.flame.util.Md5Util;
  */
 @Service
 public class UserService {
+	
 	@Autowired
 	private UserMapper userMapper;
-	@Autowired
-	private UserRoleMapper userRoleMapper;
+//	@Autowired
+//	private UserRoleMapper userRoleMapper;
 	@Autowired
 	private RoleMapper roleMapper;
 	@Autowired

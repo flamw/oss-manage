@@ -284,69 +284,6 @@ public class NetworkUtil {
 
 	
 	
-	/**
-	 * 
-	 * @param serviceUrl
-	 *            调用的url
-	 * @param parameter
-	 *            参数
-	 * @param restMethod
-	 *            {@link NetworkUtil.POST} {@link NetworkUtil.PUT}
-	 *            {@link NetworkUtil.GET}
-	 * @return
-	 */
-	public static HashMap<String, String> connectionWithMethodForFomat(String serviceUrl, Map<String,Object> parameter, String restMethod) {
-		try {
-			URL url = new URL(serviceUrl);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod(restMethod);
-			con.setConnectTimeout(300000);
-			con.addRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-			con.setDoOutput(true);
-			//OutputStream os = con.getOutputStream();
-			//os.write(parameter.getBytes("UTF-8"));
-			//os.close();
-
-			//把建立的http的连接流返回给PrintWriter
-			try (PrintWriter out = new PrintWriter(con.getOutputStream())) {
-			
-				boolean first = true;
-				for (Map.Entry<String, Object> pair : parameter.entrySet()) {
-					if (first)
-						first = false;
-					else
-						out.print('&');
-					String name = pair.getKey().toString();
-					String value = pair.getValue().toString();
-					out.print(name);
-					out.print('=');
-					out.print(URLEncoder.encode(value, "UTF-8"));
-				}
-				
-			}
-			
-			HashMap<String, String> result = new HashMap<String, String>();
-			result.put("code", String.valueOf(con.getResponseCode()));
-			result.put("msg", con.getResponseMessage());
-
-			// 读取返回信息
-			InputStream inputStream = con.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-			String strMessage;
-			StringBuffer buffer = new StringBuffer();
-			while ((strMessage = reader.readLine()) != null) {
-				buffer.append(strMessage);
-			}
-			result.put("result", buffer.toString());
-			return result;
-		} catch (Exception e) {
-			HashMap<String, String> result = new HashMap<String, String>();
-			result.put("code", "0");
-			result.put("msg", e.getMessage());
-			result.put("result", "Failed,Pls Check your url to verify it right");
-			return result;
-		}
-	}
 	
 	
 	
