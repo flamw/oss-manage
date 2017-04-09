@@ -55,6 +55,10 @@ $(function() {
             downloadObject: {
               method: 'GET',
               endpoint: '/file/public/download'
+            },
+            searchFile: {
+            	method: 'POST',
+            	endpoint: '/file/public/searchFile'
             }
 
 //        }

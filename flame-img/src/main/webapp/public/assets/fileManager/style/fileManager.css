@@ -266,6 +266,22 @@
   float: right;
   margin-right: 20px;
 }
+.fManager .fManagerContent .fManagerBody .fManagerBody-content .fM-module-toolbal .fM-bar .toolbar-search-view {
+  float: right;
+  margin-right: 160px;
+}
+.fManager .fManagerContent .fManagerBody .fManagerBody-content .fM-module-toolbal .fM-bar .toolbar-search-view .box{
+    height: 28px;
+    margin: 0px;
+    vertical-align: middle;
+    border: 1px solid #D2D2D2;
+    background: #fff;
+    padding: 0px;
+    display: block;
+    float: left;
+    padding: 0 4px;
+    margin-right: 10px;
+}
 .fManager .fManagerContent .fManagerBody .fManagerBody-content .fM-module-toolbal .fM-bar .toolbar-list-view {
   float: right;
 }

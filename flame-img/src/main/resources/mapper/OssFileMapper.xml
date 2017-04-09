@@ -199,6 +199,41 @@
 		 t.id,t.file_name as Name,t.file_size AS Size,t.mtime as LastModified,t.url as address
 	 from t_oss_file t where folder_id=#{folderId,jdbcType=INTEGER}
  </select>
-<!--   			t.id,t.file_name as Name,t.relative_path  as 'Key',t.mtime as LastModified -->
+ 
+ <select id="queryByFileName" parameterType="Map" resultType="Map">
+			 SELECT
+			t.id,t.file_name as Name,t.file_size AS Size,t.mtime as LastModified,t.url as address
+			FROM
+				t_folder f
+			INNER JOIN t_oss_file t ON f.id = t.folder_id
+			
+			where f.permission=0 
+			
+			and f.user_id=#{userId}
+			and t.file_name like CONCAT('%',#{fileName},'%') or  f.folder_name like CONCAT('%',#{fileName},'%')
+			 <if test="bucket != null">
+		        and f.bucket=#{bucket}
+		      </if>
+			 <if test="folderId != null">
+		        and f.id=#{folderId}
+		     </if>
+		   union
+		   SELECT
+			t.id,t.file_name as Name,t.file_size AS Size,t.mtime as LastModified,t.url as address
+			FROM
+				t_folder f
+			INNER JOIN t_oss_file t ON f.id = t.folder_id
+			
+			where f.permission=1
+			and t.file_name like CONCAT('%',#{fileName},'%') or  f.folder_name like CONCAT('%',#{fileName},'%')
+			 <if test="bucket != null">
+		        and f.bucket=#{bucket}
+		      </if>
+			 <if test="folderId != null">
+		        and f.id=#{folderId}
+		     </if>  
+			
+			
+ </select>
   
 </mapper>

@@ -55,4 +55,5 @@ public interface OssFileMapper {
     int updateByPrimaryKey(OssFile record);
     int deleteByFolderId(Integer floderId);
     List<Map<String,Object>> queryByFolderId(Integer floderId);
+    List<Map<String,Object>> queryByFileName(Map param);
 }

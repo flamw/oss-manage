@@ -141,6 +141,21 @@ public class FolderService {
 	
 	
 	/**
+	 * 文件夹模糊查询
+	 * @param bucket
+	 * @param userId
+	 * @param folderName
+	 * @return 
+	 */
+	public List<Map<String, Object>> queryByFolderName(String bucket,Integer userId,String folderName){
+		Folder folder=new Folder();
+		folder.setBucket(bucket);
+		folder.setUserId(userId);
+		folder.setFolderName(folderName);
+		return	folderMapper.queryFolderByFolderName(folder);
+	}
+	
+	/**
 	 * 根据id查找文件夹信息
 	 * @param id
 	 * @return

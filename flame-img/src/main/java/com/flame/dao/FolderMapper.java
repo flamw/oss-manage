@@ -54,4 +54,5 @@ public interface FolderMapper {
      */
     int updateByPrimaryKey(Folder record);
     List<Map<String, Object>> queryFolderByPid(Folder record);
+    List<Map<String, Object>> queryFolderByFolderName(Folder record);
 }

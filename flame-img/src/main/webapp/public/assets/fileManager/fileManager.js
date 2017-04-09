@@ -285,6 +285,10 @@
                                     <a class="toolbar-list-view tool" href="javascript:void(0)"> \
                                         <span class="fm-icon list-selected"></span> \
                                     </a> \
+				            		<a class="toolbar-search-view tool" href="javascript:void(0)"> \
+					            		<input type="text" name="filename" placeholder="输入搜索文件名" class="box"> \
+            							<span data-type="file-search" class="fm-icon fm-icon-sure sure"></span> \
+				            		</a> \
                                 </div> \
                             </div>'),
             ModuleCrumbs: $.templates('<div class="fM-module-curmbs"> \
@@ -637,7 +641,9 @@
             // 重命名一个文件
             renameObject: {},
             //下载
-            downloadObject: {}
+            downloadObject: {},
+            //文件搜索
+            searchFile: {}
 
         }, config);
 
@@ -769,6 +775,26 @@
     			bucket: bucket.Name,
     			folderId: folderId,
     			permission: permission,
+    			userId:userId
+    		},
+    	});
+    };
+    /**
+     * 文件搜索
+     *
+     * @param bucket object key所属的bucket的信息
+     * @param string folderId 目录id
+     * @param string fileName 搜索文件名 模糊比配
+     */
+    Service.prototype.searchFile = function(bucket, folderId,fileName) {
+    	var service = this;
+    	return $.ajax({
+    		url: service.config.server + service.config.searchFile.endpoint,
+    		type: service.config.searchFile.method,
+    		data: {
+    			bucket: bucket.Name,
+    			folderId: folderId,
+    			fileName: fileName,
     			userId:userId
     		},
     	});
@@ -2478,6 +2504,36 @@
              .delegate('.tool.toolbar-upload .file-upload', 'change', function(e) {
                  // 此处收集文件上传信息，并交由upload来处理
                  Upload.append(this.files);
+             }).delegate('.toolbar-search-view .sure', 'click', function(e) {
+                 // 文件搜索
+            	 var elem = $(this),
+                 env = tree.resolveEnv(),
+                 service,
+                 bucket,
+                 fileName = elem.prev('.box').val(),
+                 node,
+                 fid;
+            	 fid = (env.folder && env.folder.__ID) || env.bucket.__ID;
+            	 node = tree.find(fid);
+            	 service = tree.find(node.ServiceId);
+            	 bucket = tree.find(node.BucketId);
+            	 service.searchFile(bucket, node.Key,fileName).done(function(data) {
+                         plugin.modules.crumbs.trigger('refreshStatusAfterLoad', [null,  (data.files && data.files.length || 0)]);
+                         elem.attr('data-status', 'loaded');
+                             // 将数据加载进视图
+                             if (plugin.viewType === 'list')
+                                 plugin.refreshListView(data);
+                             else if (plugin.viewType === 'grid')
+                                 plugin.refreshGridView(data);
+                             // 刷新crumbs
+                             plugin.modules.crumbs.trigger('refreshCrumbs', [tree.find(fid).Key]);
+                 }, function(error) {
+                     plugin.modules.crumbs.trigger('refreshStatusAfterLoad', formatError(error));
+                     logger(formatError(error), 'error');
+                     elem.attr('data-status', 'error')
+                 });
+            	 
+            	 
              });
 
          // ----------------
