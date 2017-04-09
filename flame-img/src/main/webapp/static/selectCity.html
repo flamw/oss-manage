@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link href="css/global.css" rel="stylesheet">
+    <link href="css/select.css" rel="stylesheet">
+    <script src="customer/app/lib/jquery-1.10.2.min.js"></script>
+	<script src="js/jQuery.Hz2Py-min.js"></script>
+	<script src="js/selectCity.js?skin=select"></script>
+</head>
+<body>
+<div id="selectArea">
+
+</div>
+</body>
+<script>
+$("#selectArea").citySelector({
+    baseUrl:'/cimp',
+    provinceId:'30',
+    cityId:'',
+    bCommunity:false
+});
+</script>
+</html>

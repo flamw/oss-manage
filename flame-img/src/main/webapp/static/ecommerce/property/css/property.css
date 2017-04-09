@@ -1,0 +1,238 @@
+ul,
+li,
+ol {
+  list-style: none;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.btn {
+  line-height: 10px;
+}
+.m-content {
+  margin-left: 200px;
+  padding-bottom: 20px;
+}
+select {
+  width: auto;
+}
+textarea {
+  overflow: auto;
+  resize: none;
+}
+.m-form-height {
+  line-height: 34px;
+}
+.sidebar + .main-content {
+  overflow: hidden;
+}
+.m-delete {
+  width: 26px;
+  height: 26px;
+  line-height: 24px;
+  border-radius: 20px;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #CCC;
+  color: #CCC;
+}
+.m-delete:hover {
+  color: #333;
+  border-color: #333;
+}
+.main-content {
+  min-width: 32px;
+}
+.form-group {
+  min-width: 32px;
+}
+/*商品属性*/
+.goods-property-wrap .goods-add-submit {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.goods-property-wrap .attr {
+  width: 360px;
+  float: left;
+}
+.goods-property-wrap .attr .inside {
+  border: 1px solid #BCBCBC;
+  padding: 10px 0 0 10px;
+}
+.goods-property-wrap .attr .attr-list {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+.goods-property-wrap .attr .attr-list input {
+  width: 80px;
+  height: 25px;
+  padding: 0 5px;
+  float: left;
+}
+.goods-property-wrap .attr .btn {
+  margin-top: 10px;
+}
+.goods-property-wrap .attr .delete {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.goods-property-wrap .attr-data {
+  float: left;
+  margin-left: 20px;
+}
+.goods-property-wrap .dropdown .dropdown-list {
+  margin-bottom: 10px;
+}
+.goods-property-wrap .dropdown input {
+  float: left;
+}
+.goods-property-wrap .dropdown .delete {
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  float: left;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+.goods-property-wrap .dropdown .btn {
+  margin-top: 10px;
+}
+.goods-property-wrap .custom input {
+  float: left;
+  margin-right: 10px;
+}
+/*商品属性 end*/
+/*商品添加*/
+.goods-add-wrap textarea {
+  width: 400px;
+}
+.goods-add-wrap .input-group {
+  width: 250px;
+}
+.goods-add-wrap .headline {
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-left: 19px;
+}
+.goods-add-wrap .series dt {
+  margin-bottom: 5px;
+}
+.goods-add-wrap .series dd {
+  float: left;
+  margin-right: 10px;
+}
+.goods-add-wrap .series dd input {
+  vertical-align: -2px;
+}
+.goods-add-wrap .account ul {
+  margin: 0;
+}
+.goods-add-wrap .account li {
+  min-height: 34px;
+  margin-bottom: 10px;
+}
+.goods-add-wrap .account .tag,
+.goods-add-wrap .account .unit,
+.goods-add-wrap .account select,
+.goods-add-wrap .account label {
+  float: left;
+  line-height: 30px;
+  margin: 0 5px;
+}
+.goods-add-wrap .account input[type=text] {
+  height: 30px;
+}
+.goods-add-wrap .account .m-delete {
+  margin: 2px 0 0 10px;
+}
+.goods-add-wrap .area dt {
+  font-weight: bold;
+  margin-bottom: 5px;
+  line-height: 30px;
+  font-size: 14px;
+}
+.goods-add-wrap .area .top dd {
+  float: left;
+  margin-right: 5px;
+}
+.goods-add-wrap .area .top dd label {
+  margin: 0;
+}
+.goods-add-wrap .area .top dd input {
+  vertical-align: -2px;
+}
+.goods-add-wrap .area .teamwork dd {
+  margin-bottom: 10px;
+}
+.goods-add-wrap .area .teamwork dd:after {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  display: block;
+  visibility: hidden;
+  content: ".";
+}
+.goods-add-wrap .area .teamwork .word {
+  width: 80px;
+  float: left;
+}
+.goods-add-wrap .area .teamwork .provinces {
+  width: 600px;
+  float: left;
+  margin: 0;
+}
+.goods-add-wrap .area .teamwork .provinces li {
+  width: 200px;
+  float: left;
+  margin-bottom: 10px;
+}
+.goods-add-wrap .area .teamwork .provinces li label,
+.goods-add-wrap .area .teamwork .provinces li input {
+  vertical-align: -2px;
+}
+.goods-add-wrap .area .teamwork .provinces li .edit {
+  font-size: 16px;
+  margin-left: 5px;
+  vertical-align: -2px;
+}
+.goods-add-wrap .area .teamwork a {
+  color: #393939;
+}
+.goods-add-wrap .attr-category dt {
+  margin-bottom: 10px;
+}
+.goods-add-wrap .attr-category dd {
+  float: left;
+  margin-right: 10px;
+}
+.goods-add-wrap .attr-category .notice {
+  color: #FF0000;
+  margin: 10px 0;
+}
+.goods-add-wrap .attr-category table {
+  width: 100%;
+}
+.goods-add-wrap .attr-category table th,
+.goods-add-wrap .attr-category table td {
+  border: 1px solid #CCC;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+.goods-add-wrap .attr-category table input {
+  width: 80px;
+  height: 25px;
+  text-align: center;
+}
+/*商品添加 end*/

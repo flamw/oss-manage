@@ -1,0 +1,63 @@
+body{
+  background: #FFF;
+}
+li{
+  list-style: none;
+}
+.custom-attr-wrap{
+  margin:10px 0;
+}
+.custom-attr-wrap .choose-frame{
+  width: 800px;
+  margin:0 auto;
+  padding:20px;
+  border:1px solid #CCC;
+   overflow-x:auto;
+}
+.custom-attr-wrap .choose{
+width: 2400px;
+}
+.custom-attr-wrap .attr-list{
+  float:left;
+  margin-right:10px;
+  width: 158px;
+}
+.custom-attr-wrap .attr-list .hd{
+  height: 36px;
+  line-height: 36px;
+  background: #CCC;
+  text-align: center;
+}
+.custom-attr-wrap .attr-list .bd{
+  height: 280px;
+  overflow-y:scroll;
+  margin:0 0 10px;
+  padding:10px 15px;
+  border:1px solid #CCC;
+}
+.custom-attr-wrap .attr-list .bd input{
+  margin-right:5px;
+  vertical-align: -2px;
+}
+.custom-attr-wrap .result{
+  width: 500px;
+  margin:0 auto;
+}
+.custom-attr-wrap .result .hd{
+  margin:10px 0;
+}
+.custom-attr-wrap .result table{
+  width: 100%;
+  text-align: center;
+}
+.custom-attr-wrap .result th, .custom-attr-wrap .result td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align: center;
+}
+.custom-attr-wrap .sort-input{
+  height: 25px;
+  line-height: 25px;
+  width: 70px;
+  text-align: center;
+}

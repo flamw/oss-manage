@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ComboTree Actions - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="./themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="./themes/icon.css">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="formatTree.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>ComboTree Actions</h2>
+	<p>Click the buttons below to perform actions</p>
+	<div style="margin:20px 0">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="getValue()">GetValue</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="setValue()">SetValue</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="disable()">Disable</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="enable()">Enable</a>
+	</div>
+<!-- 	<input id="cc" class="easyui-combotree" data-options="url:'tree_data1.json',method:'get',required:true" style="width:200px;"> -->
+	<input id="cc" class="easyui-combotree" style="width:200px;">
+	<script type="text/javascript">
+	
+	var menus=[];
+	menus.push({id:1,pid:'',text:'a'});
+	menus.push({id:12,pid:1,text:'a1'});
+	menus.push({id:13,pid:1,text:'a2'});
+	menus.push({id:123,pid:12,text:'a11'});
+	menus.push({id:2,pid:'',text:'bb'});
+	menus.push({id:21,pid:2,text:'bb1'});
+	var treePath='';
+	var menuJson=formatMenu(menus);
+// 		alert(JSON.stringify(menuJson));
+	
+/* 	function formatMenu(menus){	
+		var _roots = [] ;
+		var map = {} ;
+		$( menus ).each(function(){
+			
+			if( !this.pid ){
+				_roots.push(this) ;//root
+			}else{
+				map[this.pid] = map[ this.pid ]||[] ;
+				map[this.pid].push( this ) ;
+			}
+			
+		}) ;
+		
+		formatChild(_roots,map) ;
+		return _roots ;
+	}
+	
+	function formatChild(menus,map){
+		$(menus).each(function(){
+			if(map[this.id]){
+				
+				this.children = map[this.id] ;
+				formatChild( this.children ,map) ;
+			}
+		}) ;
+	} */
+	
+	   $(function(){
+// 		   alert(1);
+		   $('#cc').combotree('loadData',menuJson);
+		   defaultVal(12);		   
+	   });
+		
+		function getValue(){
+			var val = $('#cc').combotree('getValue');
+			alert(val);
+		}
+		function setValue(){
+			$('#cc').combotree('setValue', '122');
+		}
+		function disable(){
+			$('#cc').combotree('disable');
+		}
+		function enable(){
+			$('#cc').combotree('enable');
+		}
+		
+		
+		function defaultVal(nodeId){
+			var node=$('#cc').combotree('tree').tree('find',nodeId);
+          $('#cc').combotree('tree').tree('select',node.target);
+          $('#cc').combotree('setValue', node.text);
+		}
+		
+		$('#cc').combotree({
+			onSelect:function(node) {
+// 			  alert(node.id);  
+			  }
+			})
+	</script>
+
+</body>
+</html>

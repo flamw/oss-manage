@@ -1,0 +1,39 @@
+.chx_img_logo {
+	margin: 4px;
+	padding: 0;
+	width: 75px;
+	height: 36px;
+}
+
+.footer .footer-inner .footer-content {
+    border-top-style: solid;
+    border-width: 1px;
+}
+
+.badge-light {
+    color: #438eb9;
+    background-color: #ffffff !important;
+}
+
+.navbar_divider {
+    width: 20px;
+}
+
+.navbar_tab {
+    width: 120px !important;
+    border-left: 1px solid !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.navbar_tab_active {
+    text-decoration: underline !important;
+}
+.alert-wrap{
+	width: 100%;
+	padding: 0 20px 0 210px;
+	position: fixed;
+	bottom: 10px;
+	left: 0;
+	text-align:center;
+	z-index:102;
+}

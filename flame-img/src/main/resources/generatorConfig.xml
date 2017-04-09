@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="/Users/feilonghuang/mysql-connector-java-5.1.21.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/flame?useUnicode=true&amp;characterEncoding=UTF-8"
+            userId="root" password="123" />
+        <javaModelGenerator targetPackage="com.flame.model"
+            targetProject="/workspace/flame-img/src/main/java" />
+        <sqlMapGenerator targetPackage="mapper"
+            targetProject="/workspace/flame-img/src/main/resources" />
+        <javaClientGenerator targetPackage="com.flame.dao"
+            targetProject="/workspace/flame-img/src/main/java" type="XMLMAPPER" />
+        <!-- 配置表信息 -->      
+<!--         <table schema="root" tableName="t_folder"   -->
+<!--             domainObjectName="Folder" enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false">   -->
+            <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample   
+                是否生成 example类   -->  
+<!--         </table>  -->
+<!--         <table schema="root" tableName="t_oss_file"   -->
+<!--             domainObjectName="OssFile" enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false">   -->
+            <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample   
+                是否生成 example类   -->  
+<!--         </table>  -->
+        <!-- 配置表信息 -->      
+<!--         <table schema="root" tableName="t_user_file"   -->
+<!--             domainObjectName="UserFile" enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false">   -->
+            <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample   
+                是否生成 example类   -->  
+<!--         </table>  -->
+        
+    </context>
+</generatorConfiguration>
