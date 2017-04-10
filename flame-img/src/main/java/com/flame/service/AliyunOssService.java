@@ -23,10 +23,10 @@ import com.aliyun.oss.model.PutObjectRequest;
 @Service
 public class AliyunOssService {
 	
-	private static String endpoint = "oss-cn-shenzhen.aliyuncs.com";
-	private static String accessKeyId = "LTAIm4Un8O7ikDOE";
-	private static String accessKeySecret = "qKDfGiUKSYTBkfzxjyh7Y7XydfBtoL";
-	private static String bucketName = "flame-img";
+	private static String endpoint = "";
+	private static String accessKeyId = "";
+	private static String accessKeySecret = "";
+	private static String bucketName = "";
 	
 	private static  List<Bucket>  buckets;
 
