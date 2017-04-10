@@ -209,7 +209,7 @@
       <if test="folderName != null">
         and folder_name like CONCAT('%',#{folderName},'%')
       </if>
-      union 
+      union all
    select 
       id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified
     from t_folder

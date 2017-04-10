@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.aliyun.oss.OSSClient;
@@ -23,20 +24,20 @@ import com.aliyun.oss.model.PutObjectRequest;
 @Service
 public class AliyunOssService {
 	
-	private static String endpoint = "";
-	private static String accessKeyId = "";
-	private static String accessKeySecret = "";
-	private static String bucketName = "";
+	@Value("${endpoint}")
+	private  String endpoint;
+	
+	@Value("${accessKeyId}")
+	private  String accessKeyId ;
+	
+	@Value("${accessKeySecret}")
+	private  String accessKeySecret;
+//	private static String bucketName = "flame-img";
 	
 	private static  List<Bucket>  buckets;
 
 	private static OSSClient ossClient;
 
-	static {
-		if (AliyunOssService.ossClient == null) {
-			AliyunOssService.ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-		}
-	}
 
 	public OSSClient getOSSClient() {
 
@@ -120,7 +121,7 @@ public class AliyunOssService {
 	 * @param key
 	 * @return
 	 */
-	public String getUrl(String key) {
+	public String generateUrl(String bucketName,String key) {
 		// 设置URL过期时间为10年 3600l* 1000*24*365*10
 		Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
 		// 生成URL
@@ -142,7 +143,7 @@ public class AliyunOssService {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		AliyunOssService as=new AliyunOssService();
+//		AliyunOssService as=new AliyunOssService();
 		/*String urlString = "http://sports.dzwww.com/basketball/nba/201602/W020160227118264829508.jpg";
 		URL url;
 		InputStream input = null;
@@ -161,7 +162,7 @@ public class AliyunOssService {
 //		as.delete(bucketName, "508095da-a58a-4d57-8c39-140edd7e59f4");
 //		OSSObject object=as.downLoad("flame-img", "89e37652-4995-46a7-83a0-f8259780554c");
 //		System.out.println(object);
-		as.createBucket("flame-file");
+//		as.createBucket("flame-file");
 //		as.createBucket("flame-file");
 	}
 

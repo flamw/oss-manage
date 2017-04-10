@@ -144,13 +144,15 @@ public class FolderService {
 	 * 文件夹模糊查询
 	 * @param bucket
 	 * @param userId
+	 * @param pid
 	 * @param folderName
 	 * @return 
 	 */
-	public List<Map<String, Object>> queryByFolderName(String bucket,Integer userId,String folderName){
+	public List<Map<String, Object>> queryByFolderName(String bucket,Integer userId,Integer pid,String folderName){
 		Folder folder=new Folder();
 		folder.setBucket(bucket);
 		folder.setUserId(userId);
+		folder.setPid(pid);
 		folder.setFolderName(folderName);
 		return	folderMapper.queryFolderByFolderName(folder);
 	}

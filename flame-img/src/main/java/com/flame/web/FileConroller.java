@@ -130,15 +130,15 @@ public class FileConroller {
 		return Constant.SUCCESS_CODE;
 	}
 	/**
-	 * 文件搜索 模糊比配
+	 * 文件搜索 模糊匹配
 	 */
 	@RequestMapping(value = "/public/searchFile", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> searchFile(@RequestParam(value = "bucket",required=false)String bucket, 
 			@RequestParam(value = "folderId",required=false )Integer folderId, Integer userId,String fileName) {
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		try {
-				reMap.put("folders", folderService.queryByFolderName(bucket, userId, fileName));
-		        reMap.put("files", ossFileService.searchFile(bucket, userId, folderId, fileName));
+				reMap.put("folders", folderService.queryByFolderName(bucket, userId,null, fileName));
+		        reMap.put("files", ossFileService.searchFile(bucket, userId, null, fileName));
 			 return reMap;
 		} catch (Exception e) {
 			e.printStackTrace();
