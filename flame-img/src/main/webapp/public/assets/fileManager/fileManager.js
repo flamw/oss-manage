@@ -524,6 +524,7 @@
                     service: env.service,
                     bucket: env.bucket,
                     key: env.key,
+                    folderName: env.folder.Name,
                     id: generateId()
                 };
                 upload.insertIntoList(fileData);
@@ -540,7 +541,7 @@
             tmpl = '';
         tmpl = Template.ModuleUploadList.render({
             NAME: fileData.file.name,
-            KEY: fileData.key,
+            KEY: fileData.folderName,
             SIZE: formatFileSize(fileData.file.size),
             STATUS: '等待',
             ID: fileData.id
