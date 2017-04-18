@@ -46,8 +46,4 @@ public class SpecialSymbolsUtil {
 	protected static String getQueryRegex() {
 		return DEFAULT_QUERY_REGEX;
 	}
-	/*public static void main(String[] args) {
-		String ss="¥¥";
-		System.out.println(SpecialSymbolsUtil.specialSymbols(ss));
-	}*/
 }
