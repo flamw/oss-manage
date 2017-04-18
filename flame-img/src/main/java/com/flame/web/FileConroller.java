@@ -35,6 +35,7 @@ import com.flame.service.AliyunOssService;
 import com.flame.service.FolderService;
 import com.flame.service.OssFileService;
 import com.flame.service.SysLogService;
+import com.flame.util.SpecialSymbolsUtil;
 
 /**
  * 文件管理控制器
@@ -173,6 +174,11 @@ public class FileConroller {
 		try {
 			// 阿里云上传
 			String originalFilename = uploadfile.getOriginalFilename();
+			
+//			判断特殊字符
+			boolean isSpecialSymbol=SpecialSymbolsUtil.specialSymbols(originalFilename);
+			if(isSpecialSymbol) throw new Exception("上传文件名包含非法字符，禁止上传");
+			
 			String ossKey = UUID.randomUUID().toString();
 			aliyunOssService.upload(bucket, uploadfile.getInputStream(), ossKey);
 			
