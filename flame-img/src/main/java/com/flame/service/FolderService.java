@@ -128,11 +128,11 @@ public class FolderService {
 		List<Map<String, Object>> files=new ArrayList<Map<String, Object>>();
 		
 		files.addAll((ossFileMapper.queryByFolderId(folder.getPid())));
-		if(folders!=null&&folders.size()>0){
+		/*if(folders!=null&&folders.size()>0){
 			for(Map<String, Object> map:folders){
 				files.addAll((ossFileMapper.queryByFolderId(Integer.valueOf(map.get("id")+""))));
 			}
-		}
+		}*/
 		
 		reMap.put("folders", folders);
 		reMap.put("files", files);
