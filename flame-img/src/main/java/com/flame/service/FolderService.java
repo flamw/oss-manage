@@ -102,7 +102,7 @@ public class FolderService {
 		//判断用户角色
 		User user=userService.find(folder.getUserId());
 		//如果是管理员，可以查看所有文件夹 1为角色id
-		if(user.getRoleId()==1){
+		if(user!=null&&user.getRoleId()==1){
 			folder.setUserId(null);
 		}
 		
@@ -148,12 +148,13 @@ public class FolderService {
 	 * @param folderName
 	 * @return 
 	 */
-	public List<Map<String, Object>> queryByFolderName(String bucket,Integer userId,Integer pid,String folderName){
+	public List<Map<String, Object>> queryByFolderName(String bucket,Integer userId,Integer pid,String folderName,Integer permission){
 		Folder folder=new Folder();
 		folder.setBucket(bucket);
 		folder.setUserId(userId);
 		folder.setPid(pid);
 		folder.setFolderName(folderName);
+		folder.setPermission(permission);
 		return	folderMapper.queryFolderByFolderName(folder);
 	}
 	

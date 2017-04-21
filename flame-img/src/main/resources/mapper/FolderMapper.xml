@@ -169,7 +169,7 @@
   select 
        id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified
     from t_folder
-    where permission=0
+    where 1=1
       <if test="bucket != null">
        and bucket = #{bucket,jdbcType=INTEGER}
       </if>
@@ -179,24 +179,27 @@
       <if test="userId != null">
         and user_id = #{userId,jdbcType=INTEGER}
       </if>
-      union 
-   select 
-      id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified
-    from t_folder
-    where permission=1
-    <if test="bucket != null">
-       and bucket = #{bucket,jdbcType=INTEGER}
+      <if test="permission != null">
+        and permission = #{permission,jdbcType=INTEGER}
       </if>
-      <if test="pid != null">
-       and pid = #{pid,jdbcType=INTEGER}
-      </if>
+<!--       union  -->
+<!--    select  -->
+<!--       id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified -->
+<!--     from t_folder -->
+<!--     where permission=1 -->
+<!--     <if test="bucket != null"> -->
+<!--        and bucket = #{bucket,jdbcType=INTEGER} -->
+<!--       </if> -->
+<!--       <if test="pid != null"> -->
+<!--        and pid = #{pid,jdbcType=INTEGER} -->
+<!--       </if> -->
   </select>
   
   <select id="queryFolderByFolderName" parameterType="com.flame.model.Folder" resultType="Map">
   select 
        id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified
     from t_folder
-    where permission=0
+    where 1=1
       <if test="bucket != null">
        and bucket = #{bucket,jdbcType=INTEGER}
       </if>
@@ -209,7 +212,12 @@
       <if test="folderName != null">
         and folder_name like CONCAT('%',#{folderName},'%')
       </if>
-      union all
+      <if test="permission != null">
+        and permission = #{permission,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <select id="queryShareFolderByFolderName" parameterType="com.flame.model.Folder" resultType="Map">
    select 
       id ,bucket, folder_name as Name, pid, permission, user_id, ctime, mtime as LastModified
     from t_folder
@@ -224,5 +232,4 @@
         and folder_name like CONCAT('%',#{folderName},'%')
       </if>
   </select>
-  
 </mapper>

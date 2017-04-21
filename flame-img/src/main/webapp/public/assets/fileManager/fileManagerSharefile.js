@@ -267,28 +267,17 @@
                         </li>'),
             ModuleToolbar: $.templates('<div class="fM-module-toolbal"> \
                                 <div class="fM-bar"> \
-                                    <a class="toolbar-upload tool" href="javascript:void(0)"> \
-                                        <input type="file" name="fm-upload-file" multiple="multiple" class="file-upload"> \
-                                        <span class="fm-icon upload"></span> 上传文件 \
-                                    </a> \
-                                    <a class="toolbar-new-dir tool" href="javascript:void(0)"> \
-                                        <span class="fm-icon createfile">新建文件夹</span> \
-                                        <div class="new-dir-box"> \
-                                            <input data-type="new-dir-box" class="box" type="text" placeholder="新文件夹名称"> \
-                                            <span data-type="new-dir-sure" class="fm-icon fm-icon-sure sure"></span> \
-                                            <span data-type="new-dir-cancel" class="fm-icon fm-icon-cancel cancel"></span> \
-                                        </div> \
-                                    </a> \
+				                <a class="toolbar-new-dir tool" href="javascript:void(0)"> \
+				                    <div class="new-dir-box"> \
+				                        <span data-type="new-dir-cancel" class="fm-icon fm-icon-cancel cancel"></span> \
+				                    </div> \
+				                </a> \
                                     <a class="toolbar-grid-view tool" href="javascript:void(0)"> \
                                         <span class="fm-icon grid"></span> \
                                     </a> \
                                     <a class="toolbar-list-view tool" href="javascript:void(0)"> \
                                         <span class="fm-icon list-selected"></span> \
                                     </a> \
-				            		<a class="toolbar-search-view tool" href="javascript:void(0)"> \
-					            		<input type="text" name="filename" placeholder="输入搜索文件名" class="box"> \
-            							<span data-type="file-search" class="fm-icon fm-icon-sure sure"></span> \
-				            		</a> \
                                 </div> \
                             </div>'),
             ModuleCrumbs: $.templates('<div class="fM-module-curmbs"> \
@@ -377,30 +366,11 @@
                                         <span data-type="node-edit-sure" class="fm-icon fm-icon-cancel cancel"></span> \
                                     </div> \
                                 </div>'),
-            ModuleContextMenu: $.templates('<div class="fM-module-context-menu"> \
-                                    <ul class="menu-node"> \
-                                        <li data-key="createnew">新建文件夹</li> \
-            							<li data-key="share">共享文件夹</li> \
-            							<li data-key="cancelShare">取消共享</li> \
-                                        <li data-key="delete">删除</li> \
-                                    </ul> \
-                                    <ul class="service-node"> \
-                                    </ul> \
-                                    <ul class="grid-view-context"> \
-                                        <li data-key="rename">重命名</li> \
-                                        <li data-key="delete">删除</li> \
-                                    </ul>  \
-                                    <ul class="list-view-context"> \
-                                    </ul> \
-                                 </div>'),
+            ModuleContextMenu: $.templates('<div class="fM-module-context-menu"> </div>'),
             ModuleCheckAction: $.templates('<div class="fM-module-checkAction"> \
                                     <span class="text"> \
                                         已选中 <span node-type="num"></span> 个文件/文件夹 \
-                                    </span> \
-                                    <a node-type="check-btn-option" data-key="delete"> \
-                                        <span class="fm-icon delete"></span> \
-                                        <span class="btn-value">删除</span> \
-                                    </a> \
+                                    </span>  \
                                     <a node-type="check-btn-option" data-key="download"> \
                                         <span class="fm-icon download-light"></span> \
                                         <span class="btn-value">下载</span> \

@@ -38,11 +38,11 @@ import com.flame.service.SysLogService;
 import com.flame.util.SpecialSymbolsUtil;
 
 /**
- * 文件管理控制器
+ * 共享文件控制器
  */
 @Controller
-@RequestMapping("/file/")
-public class FileConroller {
+@RequestMapping("/shareFile/")
+public class ShareFileConroller {
 
 	private String ACTION_PATH = "/filemanage/";
 
@@ -62,9 +62,9 @@ public class FileConroller {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@RequestMapping(value = "manage")
+	@RequestMapping(value = "")
 	public String fileManage() {
-		return ACTION_PATH + "filemanage";
+		return ACTION_PATH + "sharefile";
 	}
 
 	/**
@@ -93,28 +93,13 @@ public class FileConroller {
 	public @ResponseBody Map<String, Object> listFolders(HttpServletRequest request,
 			@ModelAttribute("preloadEntity") Folder folder) throws UnsupportedEncodingException {
 		try {
+			folder.setPermission(1);
+			folder.setUserId(null);
 			return folderService.queryFolderByPid(folder);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	/**
-	 * 新增文件夹
-	 */
-	@RequestMapping(value = "/public/createFolder")
-	public @ResponseBody Map<String, Object> createFolder(@ModelAttribute("preloadEntity") Folder folder) {
-		Map<String, Object> reMap = new HashMap<String, Object>();
-		try {
-			int key = folderService.add(folder);
-			sysLogService.addSysLog(folder.getUserId(), "新增文件夹",folder.getFolderName());
-			reMap.put("newFOlderKey", key);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return reMap;
 	}
 	
 	/**
@@ -138,7 +123,7 @@ public class FileConroller {
 			@RequestParam(value = "folderId",required=false )Integer folderId, Integer userId,String fileName) {
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		try {
-				reMap.put("folders", folderService.queryByFolderName(bucket, userId,null, fileName,null));
+				reMap.put("folders", folderService.queryByFolderName(bucket, null,null, fileName,1));
 		        reMap.put("files", ossFileService.searchFile(bucket, userId, null, fileName));
 			 return reMap;
 		} catch (Exception e) {
@@ -154,6 +139,8 @@ public class FileConroller {
 	@RequestMapping(value = "/public/objects")
 	public @ResponseBody Map<String, Object> listObjects(@ModelAttribute("preloadEntity") Folder folder) {
 		try {
+			folder.setPermission(1);
+			folder.setUserId(null);
 			return folderService.queryFolderAndFile(folder);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,72 +148,6 @@ public class FileConroller {
 		}
 	}
 
-	/**
-	 * 文件上传
-	 * 
-	 * @ModelAttribute("preloadEntity") File file
-	 * @throws Exception 
-	 */
-	@RequestMapping(value = "/public/upload", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> upload(String bucket, Integer folderId, Integer userId,
-			@RequestParam("file") MultipartFile uploadfile) throws Exception {
-
-		Map<String, Object> reMap = new HashMap<String, Object>();
-		try {
-			// 阿里云上传
-			String originalFilename = uploadfile.getOriginalFilename();
-			
-//			判断特殊字符
-			boolean isSpecialSymbol=SpecialSymbolsUtil.specialSymbols(originalFilename);
-			if(isSpecialSymbol) throw new Exception("上传文件名包含非法字符，禁止上传");
-			
-			String ossKey = UUID.randomUUID().toString();
-			aliyunOssService.upload(bucket, uploadfile.getInputStream(), ossKey);
-			
-			String contentType=uploadfile.getContentType();
-			String url=aliyunOssService.getUrl(bucket, ossKey);
-			
-			//阿里云图片访问 图片进行按目标宽度是500进行缩略。
-			if("image/jpeg".equals(contentType.trim())){
-				url+="?x-oss-process=image/resize,w_500";
-			}
-			// 保存文件信息
-			OssFile ossFile = new OssFile();
-			ossFile.setBucket(bucket);
-			ossFile.setFileName(originalFilename);
-			ossFile.setFileSize((int) uploadfile.getSize());
-			ossFile.setUrl(url);
-			ossFile.setFileType(contentType);
-			ossFile.setFolderId(folderId);
-			ossFile.setOssKey(ossKey);
-			ossFile.setFileSize((int) uploadfile.getSize());
-			int id = ossFileService.add(ossFile);
-			
-			sysLogService.addSysLog(userId, "文件上传",originalFilename);
-			reMap.put("newFileKey", id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			 throw e;
-		}
-		return reMap;
-	}
-
-	/**
-	 * 文件/文件夹 删除
-	 * 
-	 */
-	@RequestMapping(value = "/public/deleteObject")
-	public @ResponseBody String deleteObject(String bucket, Integer id, Integer userId) {
-		try {
-			sysLogService.addSysLog(userId, "文件/文件夹 删除","");
-			ossFileService.delete(id);
-			folderService.deleteFolder(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "no";
-		}
-		return "ok";
-	}
 
 	/**
 	 * 
@@ -269,44 +190,4 @@ public class FileConroller {
 				.body(new InputStreamResource(SSObject.getObjectContent()));
 
 	}
-
-	/**
-	 * 文件改名
-	 * 
-	 */
-	@RequestMapping(value = "/public/reNameObject")
-	public @ResponseBody Map<String, Object> reNameObject(@ModelAttribute("preloadEntity") File file) {
-		Map<String, Object> reMap = new HashMap<String, Object>();
-		
-		//TODO
-		return reMap;
-	}
-
-	/**
-	 * 文件移动
-	 * 
-	 * @return@ModelAttribute("preloadEntity") File file, ,String fileName
-	 * @throws UnsupportedEncodingException
-	 */
-	@RequestMapping(value = "/public/mvObject")
-	public @ResponseBody String mvObject(HttpServletRequest request, @RequestBody String body)
-			throws UnsupportedEncodingException {
-		// TODO
-		return Constant.SUCCESS_CODE;
-	}
-
-/*	*//**
-	 * 校验用户是否登陆
-	 * 
-	 * @param file
-	 * @return
-	 *//*
-	public boolean validate(File file) {
-		if (file != null && file.getUserId() != null) {
-			return true;
-		} else
-			return false;
-	}
-
-	*/
 }
