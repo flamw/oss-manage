@@ -42,7 +42,7 @@ import com.flame.util.SpecialSymbolsUtil;
  */
 @Controller
 @RequestMapping("/shareFile/")
-public class ShareFileConroller {
+public class ShareFileController {
 
 	private String ACTION_PATH = "/filemanage/";
 
@@ -124,7 +124,7 @@ public class ShareFileConroller {
 		Map<String, Object> reMap = new HashMap<String, Object>();
 		try {
 				reMap.put("folders", folderService.queryByFolderName(bucket, null,null, fileName,1));
-		        reMap.put("files", ossFileService.searchFile(bucket, userId, null, fileName));
+		        reMap.put("files", ossFileService.searchFile(bucket, userId, null, fileName,null));
 			 return reMap;
 		} catch (Exception e) {
 			e.printStackTrace();

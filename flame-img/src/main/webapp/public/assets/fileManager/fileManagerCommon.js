@@ -1788,7 +1788,7 @@
         })).appendTo(plugin.element);
 
         // 初始化 sider 目录树
-        plugin.modules.siderElem = mainHtml.find('.fManagerSider');
+//        plugin.modules.siderElem = mainHtml.find('.fManagerSider');
 
         // 初始化 文件显示区
         plugin.contentElement = mainHtml.find('.fManagerBody-content');
@@ -1797,16 +1797,16 @@
         plugin.footerElement = mainHtml.find('.fManagerBody-foot');
 
         // 初始化目录树;
-        tree = Tree.instance(plugin.modules.siderElem);
+//        tree = Tree.instance(plugin.modules.siderElem);
 
         // 注册服务
         if (!options.Service || !$.isArray(options.Service) || options.Service.length === 0)
             throw new Error('Request At least 1 Service ,provided 0.');
 
-        // 在目录树上注册服务
-        $.each(options.Service, function(index) {
-            Tree.registerService(new Service(options.Service[index]));
-        });
+//        // 在目录树上注册服务
+//        $.each(options.Service, function(index) {
+//            Tree.registerService(new Service(options.Service[index]));
+//        });
 
         // 初始化侧边栏弹窗工具栏
         (function() {
@@ -1917,7 +1917,7 @@
         var plugin = this,
             options = plugin.options,
             modules = plugin.modules,
-            tree = Tree.instance();
+//            tree = Tree.instance();
 
         /**
          * 删除object

@@ -36,6 +36,21 @@
             <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample   
                 是否生成 example类   -->  
 <!--         </table>  -->
+<!--         <table schema="root" tableName="t_note"   -->
+<!--             domainObjectName="Note" enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false">   -->
+<!--         </table>  -->
+<!--          <table schema="root" tableName="t_message" -->
+<!--             domainObjectName="Message" enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false">   -->
+<!--         </table>  -->
         
+<!--          <table schema="root" tableName="t_user_message" -->
+<!--             domainObjectName="UserMessage" enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false" enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false">   -->
+<!--         </table>  -->
     </context>
 </generatorConfiguration>

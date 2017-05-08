@@ -12,13 +12,53 @@
                     <c:forEach var="item" items="${menus}">
 					  <li > 
                                 <a href="${item.url}" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    <i class="menu-icon fa ${item.menu_icon}"></i>
                                     <span class="menu-text">
                                         ${item.menu_name}
                                     </span>
                                 </a>
                      </li>
 					  </c:forEach>
+<!-- 					    <li >  -->
+<!--                                 <a href="/fileCommon/?fileType=DOCUMENT" > -->
+<!--                                     <i class="menu-icon fa fa-book"></i> -->
+<!--                                     <span class="menu-text"> -->
+<!--                                         文档 -->
+<!--                                     </span> -->
+<!--                                 </a> -->
+<!--                      </li> -->
+<!-- 					    <li >  -->
+<!--                                 <a href="/fileCommon/?fileType=MUSIC" > -->
+<!--                                     <i class="menu-icon fa fa-headphones"></i> -->
+<!--                                     <span class="menu-text"> -->
+<!--                                         音乐 -->
+<!--                                     </span> -->
+<!--                                 </a> -->
+<!--                      </li> -->
+<!-- 						    <li >  -->
+<!-- 	                                <a href="/fileCommon/?fileType=VIDEO" > -->
+<!-- 	                                    <i class="menu-icon fa fa-film"></i> -->
+<!-- 	                                    <span class="menu-text"> -->
+<!-- 	                                        视频 -->
+<!-- 	                                    </span> -->
+<!-- 	                                </a> -->
+<!-- 	                     </li> -->
+<!-- 						    <li >  -->
+<!-- 	                                <a href="/fileCommon/?fileType=PICTURE" > -->
+<!-- 	                                    <i class="menu-icon fa fa-camera"></i> -->
+<!-- 	                                    <span class="menu-text"> -->
+<!-- 	                                        图片 -->
+<!-- 	                                    </span> -->
+<!-- 	                                </a> -->
+<!-- 	                     </li> -->
+<!-- 						    <li >  -->
+<!-- 	                                <a href="/fileCommon/note" > -->
+<!-- 	                                    <i class="menu-icon fa fa-pencil-square-o"></i> -->
+<!-- 	                                    <span class="menu-text"> -->
+<!-- 	                                        笔记本 -->
+<!-- 	                                    </span> -->
+<!-- 	                                </a> -->
+<!-- 	                     </li> -->
                     
 <!--                     <li class="active open"> -->
 <!--                         <a class="dropdown-toggle" href="#"> -->
@@ -106,4 +146,3 @@
                 </ul>
                 
             </div>
-            

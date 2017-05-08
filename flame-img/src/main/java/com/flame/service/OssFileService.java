@@ -48,7 +48,7 @@ public class OssFileService {
 	 * @param fileName 文件名称
 	 * @return
 	 */
-	public List<Map<String, Object>> searchFile(String bucket,  Integer userId,Integer folderId,String fileName){
+	public List<Map<String, Object>> searchFile(String bucket,  Integer userId,Integer folderId,String fileName,String[] fileType){
 //		Map<String, Object> reMap = new HashMap<String, Object>();
 		
 //		设置参数
@@ -57,6 +57,7 @@ public class OssFileService {
 		param.put("userId", userId);
 		param.put("folderId", folderId);
 		param.put("fileName", fileName);
+		param.put("fileType", fileType);
 		
 //		List<Map<String, Object>> files=ossFileMapper.queryByFileName(param);
 //		reMap.put("files", files);

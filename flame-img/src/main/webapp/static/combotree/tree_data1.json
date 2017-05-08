@@ -24,6 +24,7 @@
 		},{
 			"id":122,
 			"text":"Java",
+			"checked":0,
 			"attributes":{
 				"p1":"Custom Attribute1",
 				"p2":"Custom Attribute2"
@@ -34,7 +35,7 @@
 		},{
 			"id":124,
 			"text":"Games",
-			"checked":true
+			"checked":1
 		}]
 	},{
 		"id":13,

@@ -31,6 +31,8 @@
 <link rel="stylesheet" href="${ctx}/static/css/ace.min.css"
 	class="ace-main-stylesheet" id="main-ace-style" />
 
+<link rel="stylesheet" type="text/css" href="${ctx}/static/combotree/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/combotree/themes/icon.css">
 <!--[if lte IE 9]>
 			<link rel="stylesheet" href="${ctx}/static/css/ace-part2.min.css" class="ace-main-stylesheet" />
 		<![endif]-->
@@ -78,6 +80,8 @@
 <script src="${ctx}/static/js/jquery.dndc-alert.js"></script>
 <script src="${ctx}/static/js/common/dateutil.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/common/delete.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/jquery.easyui.min.js"></script>
+<script src="${ctx}/public/jsrender/jsrender.min.js"></script>
 <style  type="text/css">
 /* jqgrid表头居中 */
 .ui-jqgrid .ui-jqgrid-labels th{
@@ -182,6 +186,21 @@ var  userId='${user.userId}';
 
 <script type="text/javascript">
 
+//选择菜单显示lan
+$(function(){
+	var url=window.location.href;
+	var port=window.location.port;
+	var uri=url.substring(url.indexOf(port)+4);
+
+	$("#sidebar").find("a").each(function(){
+	  var href=$(this).attr("href");
+	  if(href==uri){
+		  $(this).closest("li").attr("class","active");
+		  return;
+	  }
+	});
+
+});
 </script>
 </body>
 </html>

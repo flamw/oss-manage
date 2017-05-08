@@ -27,7 +27,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 //			addExcludedPath("/login/").addExcludedPath("/login/index")shareFile
 			builder.addDecoratorPath("*", "/user/menu").addExcludedPath("/login/*").addExcludedPath("*/platform/*")
-			.addExcludedPath("*/static/*").addExcludedPath("*/public/*").addExcludedPath("*/file/public/*").addExcludedPath("*/shareFile/public/*")
+			.addExcludedPath("*/static/*").addExcludedPath("*/public/*").addExcludedPath("*/fileCommon/public/*").addExcludedPath("*/file/public/*").addExcludedPath("*/shareFile/public/*")
 			.addExcludedPath("/user/menu");
 		}
 	}

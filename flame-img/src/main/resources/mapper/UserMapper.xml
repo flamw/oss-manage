@@ -171,6 +171,8 @@
 				m.menu_id,
 				m.pid,
 				m.menu_name,
+				m.sort,
+				menu_icon,
 				m.url
 			FROM
 				t_role t
@@ -178,6 +180,7 @@
 			LEFT JOIN t_menu m ON m.menu_id = rm.menu_id
 			WHERE
 				t.role_id = #{roleId,jdbcType=INTEGER}
+				order by m.sort
   
   </select>
 </mapper>

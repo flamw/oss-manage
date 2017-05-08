@@ -1,10 +1,3 @@
-/*
- * jQuery lightweight plugin
- * Original author: @mark stock
- * Email: markstock7@hotmail.com
- * Github page: https://github.com/markstock7/FileManager
- * Licensed under the MIT license
- */
 ;(function($, _, document, window, undefined) {
 
     'use strict';
@@ -302,8 +295,9 @@
                                                 <span class="fm-icon blank"></span> \
                                             </span> \
                                         </th>\
-                                        <th class="col2">大小</th> \
-                                        <th class="col3">修改日期</th> \
+                                        <th class="col2_"></th> \
+					            		<th class="col2">大小</th> \
+                                        <th class="col3">修改日期</th>\
                                         </tr> \
                                     </thead> \
                                     <tbody class="list-view-content"> \
@@ -333,7 +327,8 @@
                                             </span> \
                                         </span> \
                                     </th> \
-                                    <th class="col2">{{:FILE_SIZE}}</th> \
+                                    <th class="col2_"><a onclick="commentFile({{:KEY}});return false;">评论</a></th> \
+				            		<th class="col2">{{:FILE_SIZE}}</th> \
                                     <th class="col3">{{:FILE_MODIFIED}}</th> \
                                </tr>'),
             ModuleGridView: $.templates('<div class="fM-module-grid-view"> \

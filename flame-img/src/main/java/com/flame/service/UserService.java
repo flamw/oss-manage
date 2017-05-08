@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +26,11 @@ import com.flame.util.Md5Util;
  */
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserMapper userMapper;
-//	@Autowired
-//	private UserRoleMapper userRoleMapper;
+	// @Autowired
+	// private UserRoleMapper userRoleMapper;
 	@Autowired
 	private RoleMapper roleMapper;
 	@Autowired
@@ -49,18 +52,18 @@ public class UserService {
 	 * @return
 	 */
 	public boolean add(User user) {
-		User fuser=findUserByuserName(user.getUserName());
-		if(fuser==null){
-		// 密码md5加密
-		user.setPassword(Md5Util.getMd5(user.getPassword()));
-		user.setCtime(new Date());
-		user.setMtime(new Date());
-		userMapper.insert(user);
-		return true;
-		}else{
+		User fuser = findUserByuserName(user.getUserName());
+		if (fuser == null) {
+			// 密码md5加密
+			user.setPassword(Md5Util.getMd5(user.getPassword()));
+			user.setCtime(new Date());
+			user.setMtime(new Date());
+			userMapper.insert(user);
+			return true;
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	/**
@@ -152,16 +155,31 @@ public class UserService {
 
 	/**
 	 * 判断输入密码是否正确
+	 * 
 	 * @param userName
 	 * @param passwrod
 	 */
-	public boolean verifyPassword(String userName,String passwrod){
-	    User user=findUserByuserName(userName);
-	    if(user!=null&&user.getPassword().equals(Md5Util.getMd5(passwrod))){
-	    	return true;
-	    }else{
-	    	return false;
-	    }
+	public boolean verifyPassword(String userName, String passwrod) {
+		User user = findUserByuserName(userName);
+		if (user != null && user.getPassword().equals(Md5Util.getMd5(passwrod))) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
+
+	public User getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		return (User) session.getAttribute("user");
+	}
+
+	public Integer getLoginUserId(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			return user.getUserId();
+		} else
+			return null;
+	}
+
 }

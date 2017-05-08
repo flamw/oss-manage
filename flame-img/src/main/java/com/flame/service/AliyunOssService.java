@@ -39,7 +39,7 @@ public class AliyunOssService {
 	private static OSSClient ossClient;
 
 
-	public OSSClient getOSSClient() {
+	public  OSSClient getOSSClient() {
 
 		if (AliyunOssService.ossClient == null) {
 			AliyunOssService.ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
@@ -52,12 +52,12 @@ public class AliyunOssService {
 	 * @return
 	 */
 	public Bucket createBucket(String bucketName) {
-		if (!ossClient.doesBucketExist(bucketName)) {
+		if (!getOSSClient().doesBucketExist(bucketName)) {
 			/*
 			 * Create a new OSS bucket
 			 */
 			System.out.println("Creating bucket " + bucketName + "\n");
-			ossClient.createBucket(bucketName);
+			getOSSClient().createBucket(bucketName);
 			CreateBucketRequest createBucketRequest = new CreateBucketRequest(bucketName);
 			createBucketRequest.setCannedACL(CannedAccessControlList.PublicReadWrite);
 			return ossClient.createBucket(createBucketRequest);
@@ -82,7 +82,7 @@ public class AliyunOssService {
 	 * @param key
 	 */
 	public void upload(String bucketName, File file, String key) {
-		ossClient.putObject(new PutObjectRequest(bucketName, key, file));
+		getOSSClient().putObject(new PutObjectRequest(bucketName, key, file));
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class AliyunOssService {
 		// 新建GetObjectRequest
 		GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, key);
 		// 下载Object到文件
-		OSSObject object = ossClient.getObject(getObjectRequest);
+		OSSObject object = getOSSClient().getObject(getObjectRequest);
 
 		return object;
 	}
@@ -104,7 +104,7 @@ public class AliyunOssService {
 	 * @param key
 	 */
 	public void upload(String bucketName, InputStream inputStream, String key) {
-		ossClient.putObject(bucketName, key, inputStream);
+		getOSSClient().putObject(bucketName, key, inputStream);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class AliyunOssService {
 	 * @param key
 	 */
 	public void delete(String bucketName, String key) {
-		ossClient.deleteObject(bucketName, key);
+		getOSSClient().deleteObject(bucketName, key);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class AliyunOssService {
 		// 设置URL过期时间为10年 3600l* 1000*24*365*10
 		Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
 		// 生成URL
-		URL url = ossClient.generatePresignedUrl(bucketName, key, expiration);
+		URL url = getOSSClient().generatePresignedUrl(bucketName, key, expiration);
 		if (url != null) {
 			return url.toString();
 		}

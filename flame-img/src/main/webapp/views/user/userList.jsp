@@ -6,6 +6,33 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
+<style>
+.np-comment-list .np-post {
+    position: relative;
+    padding-left: 40px;
+    vertical-align: top;
+}
+.np-comment-list .np-avatar {
+    position: absolute;
+    top: 20px;
+    left: 0;
+}
+.np-reply-box-content{
+margin-top: 100px;
+    position: absolute;
+}
+#allComments{
+height: 300px;
+/*     overflow: auto; */
+    overflow-y:scroll;
+}
+.np-post {
+/*      border-bottom: solid 1px;  */
+}
+ul{
+list-style: none;
+}
+</style>
 </head>
 
 <body class="no-skin">
@@ -16,7 +43,7 @@
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a>
 				</li>
-<!-- 				<li class="active"><a href="#">系统设置</a></li> -->
+				<!-- 				<li class="active"><a href="#">系统设置</a></li> -->
 				<li class="active"><a href="#">用户管理</a></li>
 			</ul>
 
@@ -27,8 +54,7 @@
 						placeholder="Search ..." class="nav-search-input"
 						id="nav-search-input" autocomplete="off" /> <i
 						class="ace-icon fa fa-search nav-search-icon"></i>
-					</span>
-					<input type="hidden" id="operate-message" value="${message}">
+					</span> <input type="hidden" id="operate-message" value="${message}">
 					<input type="hidden" id="operate-flag" value="${operate-flag}">
 				</form>
 			</div>
@@ -45,10 +71,10 @@
 
 		<div class="col-xs-12">
 			<!-- PAGE CONTENT BEGINS -->
-<!-- 			<button type="button" class="btn btn-sm btn-primary" -->
-<%-- 				onclick="document.location='${ctx}/user/add'"> --%>
-<!-- 				<i class="ace-icon glyphicon glyphicon-plus"></i> 新增 -->
-<!-- 			</button> -->
+			<!-- 			<button type="button" class="btn btn-sm btn-primary" -->
+			<%-- 				onclick="document.location='${ctx}/user/add'"> --%>
+			<!-- 				<i class="ace-icon glyphicon glyphicon-plus"></i> 新增 -->
+			<!-- 			</button> -->
 			<!-- <button id="id-btn-addattr" type="button" class="btn btn-sm btn-primary" >
 						<i class="ace-icon glyphicon glyphicon-edit"></i> 编辑
 					</button>
@@ -97,6 +123,7 @@
 					data-flag='true'>复制此效验码</button>
 			</span>
 		</div>
+
 	</div>
 
 	<script type="text/javascript">
@@ -359,8 +386,8 @@
 				modal: true,
 				title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i>确认删除</h4></div>",
 				title_html: true,
-				width:400,
-				height:200,
+				width:500,
+				height:600,
 				buttons: [ 
 	       			{
 	               		text: "确定",
@@ -415,8 +442,8 @@
 				modal: true,
 				title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i>温情提示</h4></div>",
 				title_html: true,
-				width:400,
-				height:200,
+				width:600,
+				height:300,
 				buttons: [ 
 		   			{
 		           		text: "确定",

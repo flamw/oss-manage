@@ -214,12 +214,21 @@
 			<if test="userId != null">
 		        and f.user_id=#{userId}
 		     </if>
+		     <if test="fileName != null">
 			and t.file_name like CONCAT('%',#{fileName},'%')
+			</if>
 			 <if test="bucket != null">
 		        and f.bucket=#{bucket}
 		      </if>
 			 <if test="folderId != null">
 		        and f.id=#{folderId}
+		     </if>
+			 <if test="fileType != null">
+		        and t.file_type in
+		        <foreach item="item" index="index" collection="fileType" open="("  
+		            separator="," close=")">  
+		            #{item}  
+		        </foreach> 
 		     </if>
 <!-- 		   union all -->
 <!-- 		   SELECT -->
